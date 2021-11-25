@@ -6,8 +6,8 @@ export type orderDocument = Document & {
   quantity: number
   price: number
   description: string
-  orderedFrom: string[]
-  orderedBy: string[]
+  product: string[]
+  customer: string[]
 }
 
 const orderSchema = new mongoose.Schema({
@@ -28,13 +28,13 @@ const orderSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  orderedFrom: [
+  product: [
     {
       type: mongoose.Types.ObjectId,
       ref: 'Product',
     },
   ],
-  orderedBy: [
+  customer: [
     {
       type: mongoose.Types.ObjectId,
       ref: 'Customer',

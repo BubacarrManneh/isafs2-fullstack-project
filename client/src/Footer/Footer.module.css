@@ -1,0 +1,21 @@
+.Footer {
+    width: 100%;
+    height: 90px;
+    background: purple;
+    color: white;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.Footer .footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+}
+
+.Footer .socialMedia {
+    width: 70px;
+}

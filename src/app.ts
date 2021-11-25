@@ -13,7 +13,7 @@ import apiContentType from './middlewares/apiContentType'
 import compression from 'compression'
 
 import passport from 'passport'
-import { googleStrategy } from './config/passport'
+import { googleStrategy, jwtStrategy } from './config/passport'
 
 dotenv.config({ path: '.env' })
 const app = express()
@@ -28,15 +28,17 @@ app.use(express.json())
 app.use(lusca.xframe('SAMEORIGIN'))
 app.use(lusca.xssProtection(true))
 app.use(passport.initialize())
+app.use(passport.session())
 
 // passportStrategy
 passport.use(googleStrategy)
+passport.use(jwtStrategy)
 
-// Use movie router
+// routers
 app.use('/api/v1/movies', movieRouter)
 app.use('/api/v1/customer', customerRouter)
 app.use('/api/v1/order', orderRouter)
-app.use('/api/v1/product', productRouter)
+app.use('/api/v1/products', productRouter)
 app.use('/api/v1/google/login', googleLoginRouter)
 
 // Custom API error handler

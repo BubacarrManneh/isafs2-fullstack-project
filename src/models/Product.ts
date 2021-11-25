@@ -2,20 +2,16 @@
 import mongoose, { Document } from 'mongoose'
 
 export type ProductDocument = Document & {
-  productId: string
   name: string
+  price: number
   category: string
   description: string
+  image: string
   variant: string[]
   customer: string[]
 }
 
 const productSchema = new mongoose.Schema({
-  productId: {
-    type: String,
-    index: true,
-    require: true,
-  },
   name: {
     type: String,
     require: true,
@@ -30,21 +26,17 @@ const productSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    require: true,
+  },
+  image: {
+    type: String,
   },
   variant: [
     {
-      productId: {
-        type: String,
-        require: true,
-      },
       color: {
         type: String,
-        require: true,
       },
       size: {
         type: String,
-        require: true,
       },
     },
   ],

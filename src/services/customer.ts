@@ -1,10 +1,40 @@
 import Customer, { CustomerDocument } from '../models/Customer'
 import { NotFoundError } from '../helpers/apiError'
 
-const createCustomer = async (
-  movie: CustomerDocument
+type Profile = {
+  given_name: string
+  family_name: string
+  name: string
+  email: string
+  picture: string
+}
+
+const findCustomerByEmail = async (
+  customerProfile: Profile
 ): Promise<CustomerDocument> => {
-  return movie.save()
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  const { given_name, family_name, name, email, picture } = customerProfile
+  const customer = await Customer.findOne({ email: email })
+  if (!customer) {
+    const newCustomer = new Customer({
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      given_name,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      family_name,
+      name,
+      email,
+      picture,
+    })
+    const createdCustomer = await newCustomer.save()
+    return createdCustomer
+  } else {
+    return customer
+  }
+}
+const createCustomer = async (
+  customer: CustomerDocument
+): Promise<CustomerDocument> => {
+  return customer.save()
 }
 
 const findCustomerById = async (
@@ -52,6 +82,7 @@ const deleteCustomer = async (
 
 export default {
   createCustomer,
+  findCustomerByEmail,
   findCustomerById,
   findAllCustomer,
   updateCustomer,

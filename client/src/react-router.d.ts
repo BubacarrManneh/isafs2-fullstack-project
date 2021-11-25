@@ -1,0 +1,1 @@
+declare modeule = 'react-router-dom'

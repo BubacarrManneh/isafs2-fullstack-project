@@ -11,14 +11,28 @@ export const createCustomer = async (
   next: NextFunction
 ) => {
   try {
-    const { firstName, lastName, address, order, Product } = req.body
-
-    const customer = new Customer({
+    const {
+      name,
       firstName,
       lastName,
+      email,
+      picture,
       address,
       order,
-      Product,
+      product,
+      role,
+    } = req.body
+
+    const customer = new Customer({
+      name,
+      firstName,
+      lastName,
+      email,
+      picture,
+      address,
+      order,
+      product,
+      role,
     })
 
     await CustomerService.createCustomer(customer)

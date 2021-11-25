@@ -10,7 +10,7 @@ import {
 
 const router = express.Router()
 
-// Every path we define here will get /api/v1/movies prefix
+// Every path we define here will get /api/v1/ customer
 router.get('/', findAllCustomer)
 router.get('/:customerId', findCustomerById)
 router.put('/:customerId', updateCustomer)

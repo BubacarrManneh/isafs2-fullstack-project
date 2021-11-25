@@ -1,23 +1,37 @@
-import React from 'react';
-import GoogleLogin from 'react-google-login';
+import React,{useState} from 'react';
+import {Route, Switch} from 'react-router-dom'
+import Login from './components/login'
+import {Customer} from './components/types'
+import Home from './components/Home';
 import './App.css';
-import axios from 'axios'
+import ProductPage from './components/ProductPage';
+import Navbar from './Navigation/Navbar';
+import Footer from './Footer/Footer';
+
 
 function App() {
-  const responseGoogle = async (response: any) => {
-    console.log(response.tokenId);
-    const tokenId = response.tokenId;
-    await axios.post('https://localhost:5000/api/v1/google/login', {id_token: tokenId})
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [customer, setCustomer] = useState<Customer>()
+  const setCustomerData = (customer: Customer) => {
+    setCustomer(customer)
+    console.log("Customer", customer)
   }
+ 
   return(
     <div className="App">
-      <GoogleLogin
-        clientId="644778579634-umlm37ou4nk3e4g0c8o4ftkreapfjb0f.apps.googleusercontent.com"
-        buttonText="Login"
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle}
-        cookiePolicy={'single_host_origin'}
-      />
+      <Navbar />
+      <Switch>
+        <Route exact path="/login">
+          <Login setCustomer={setCustomerData}/>
+        </Route>
+        <Route exact path="/">
+            <Home />
+        </Route>
+        <Route exact path="/product/:productId">
+        <ProductPage />
+        </Route>
+      </Switch>
+      <Footer />
     </div>
   )
 }

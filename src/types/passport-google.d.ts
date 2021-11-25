@@ -1,1 +1,1 @@
-declare module 'google-passport-id-token'
+declare module 'passport-google-id-token'

@@ -2,20 +2,34 @@
 import mongoose, { Document } from 'mongoose'
 
 export type CustomerDocument = Document & {
+  name: string
   firstName: string
-  lastName: string
+  lastNname: string
+  email: string
+  picture: string
   address: string[]
   order: string[]
   Product: string[]
+  role: string
 }
 
 const customerSchema = new mongoose.Schema({
-  firstName: {
+  name: {
     type: String,
-    index: true,
     require: true,
   },
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  firstName: {
+    type: String,
+  },
+  // eslint-disable-next-line @typescript-eslint/camelcase
   lastName: {
+    type: String,
+  },
+  picture: {
+    type: String,
+  },
+  email: {
     type: String,
     require: true,
   },
@@ -23,20 +37,16 @@ const customerSchema = new mongoose.Schema({
     {
       street: {
         type: String,
-        require: true,
       },
       zip: {
         type: Number,
-        required: true,
-        min: 1234,
+        min: 1,
       },
       city: {
         type: String,
-        require: true,
       },
       country: {
         type: String,
-        require: true,
       },
     },
   ],
@@ -52,6 +62,10 @@ const customerSchema = new mongoose.Schema({
       ref: 'Product',
     },
   ],
+  role: {
+    type: String,
+    default: 'customer',
+  },
 })
 
 export default mongoose.model<CustomerDocument>('Customer', customerSchema)

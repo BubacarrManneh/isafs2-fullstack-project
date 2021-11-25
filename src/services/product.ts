@@ -54,4 +54,5 @@ export default {
   findAllProduct,
   updateProduct,
   deleteProduct,
+  // addProductToOrder
 }
